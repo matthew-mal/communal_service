@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import House, Tariff, WaterMeter, WaterMeterReading, Apartment
+from .models import House, Tariff, WaterMeter, WaterMeterReading, Apartment, Rent
 
 
 @admin.register(House)
@@ -26,3 +26,8 @@ class WaterMeterAdmin(admin.ModelAdmin):
 @admin.register(WaterMeterReading)
 class WaterMeterReadingAdmin(admin.ModelAdmin):
     list_display = ('water_meter', 'reading_date', 'value')
+
+
+@admin.register(Rent)
+class RentAdmin(admin.ModelAdmin):
+    list_display = ('apartment', 'year', 'month', 'total_rent')
