@@ -1,6 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import HouseViewSet, ApartmentViewSet, TariffViewSet, WaterMeterViewSet, WaterMeterReadingViewSet
+from .views import HouseViewSet, ApartmentViewSet, TariffViewSet, WaterMeterViewSet, WaterMeterReadingViewSet, \
+    CalculateRentView, CheckCalculationProgressView
 
 router = DefaultRouter()
 router.register(r'houses', HouseViewSet)
