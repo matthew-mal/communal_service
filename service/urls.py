@@ -4,11 +4,11 @@ from .views import HouseViewSet, ApartmentViewSet, TariffViewSet, WaterMeterView
     CalculateRentView, CheckCalculationProgressView
 
 router = DefaultRouter()
-router.register(r'houses', HouseViewSet)
-router.register(r'apartments', ApartmentViewSet)
-router.register(r'tariffs', TariffViewSet)
-router.register(r'water_meters', WaterMeterViewSet)
-router.register(r'water_meter_readings', WaterMeterReadingViewSet)
+router.register(r'houses', HouseViewSet, basename='houses')
+router.register(r'apartments', ApartmentViewSet, basename='apartments')
+router.register(r'tariffs', TariffViewSet, basename='tariffs')
+router.register(r'water_meters', WaterMeterViewSet, basename='water_meters')
+router.register(r'water_meter_readings', WaterMeterReadingViewSet, basename='water_meter_readings')
 
 urlpatterns = [
     path('', include(router.urls)),
