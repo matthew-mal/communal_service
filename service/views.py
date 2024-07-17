@@ -1,3 +1,4 @@
+from celery.result import AsyncResult
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -33,13 +34,16 @@ class WaterMeterReadingViewSet(viewsets.ModelViewSet):
     serializer_class = WaterMeterReadingSerializer
 
 
-# class CalculateBillsView(APIView):
-#     def post(self, request, house_id, month):
-#         task = calculate_rent.delay(house_id, month)
-#         return Response({'task_id': task.id}, status=status.HTTP_202_ACCEPTED)
-#
-#     def get(self, request, task_id):
-#         result = calculate_rent.AsyncResult(task_id)
-#         if result.state == 'SUCCESS':
-#             return Response({'status': result.state, 'result': result.result})
-#         return Response({'status': result.state})
+class CalculateRentView(APIView):
+    def post(self, request, house_id, year, month):
+        task = calculate_rent.delay(house_id, year, month)
+        return Response({'task_id': task.id}, status=status.HTTP_202_ACCEPTED)
+
+
+class CheckCalculationProgressView(APIView):
+    def get(self, request, task_id):
+        task_result = AsyncResult(task_id)
+        if task_result.state == 'SUCCESS':
+            return Response({'status': task_result.state, 'result': task_result.result})
+        else:
+            return Response({'status': task_result.state})

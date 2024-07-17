@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import House, Apartment, Tariff, WaterMeter, WaterMeterReading
+from .models import House, Apartment, Tariff, WaterMeter, WaterMeterReading, Rent
 
 
 class WaterMeterReadingSerializer(serializers.ModelSerializer):
@@ -36,3 +36,9 @@ class TariffSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tariff
         fields = ('name', 'price_per_unit')
+
+
+class RentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rent
+        fields = ('apartment', 'year', 'month', 'total_rent')
