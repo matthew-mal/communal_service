@@ -10,7 +10,9 @@ from .tasks import calculate_rent
 
 
 class HouseViewSet(viewsets.ModelViewSet):
-    queryset = House.objects.all().prefetch_related('apartments', 'apartments__water_meters', 'apartments__water_meters__readings')
+    queryset = House.objects.all().prefetch_related(
+        'apartments', 'apartments__water_meters', 'apartments__water_meters__readings'
+    )
     serializer_class = HouseSerializer
 
 
