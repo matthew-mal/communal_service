@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 from decouple import Csv, config
 
@@ -15,6 +16,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    #
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "drf_yasg",
+    # local
+    "service.apps.ServiceConfig",
 ]
 
 MIDDLEWARE = [
@@ -92,6 +99,10 @@ REST_FRAMEWORK = {
     ],
 }
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
 # celery
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
