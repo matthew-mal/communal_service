@@ -10,12 +10,12 @@ from .tasks import calculate_rent
 
 
 class HouseViewSet(viewsets.ModelViewSet):
-    queryset = House.objects.all()
+    queryset = House.objects.all().prefetch_related('apartments', 'apartments__water_meters', 'apartments__water_meters__readings')
     serializer_class = HouseSerializer
 
 
 class ApartmentViewSet(viewsets.ModelViewSet):
-    queryset = Apartment.objects.all()
+    queryset = Apartment.objects.prefetch_related('water_meters__readings').select_related('house').all()
     serializer_class = ApartmentSerializer
 
 
@@ -25,12 +25,12 @@ class TariffViewSet(viewsets.ModelViewSet):
 
 
 class WaterMeterViewSet(viewsets.ModelViewSet):
-    queryset = WaterMeter.objects.all()
+    queryset = WaterMeter.objects.select_related('apartment').prefetch_related('readings').all()
     serializer_class = WaterMeterSerializer
 
 
 class WaterMeterReadingViewSet(viewsets.ModelViewSet):
-    queryset = WaterMeterReading.objects.all()
+    queryset = WaterMeterReading.objects.select_related('water_meter__apartment').all()
     serializer_class = WaterMeterReadingSerializer
 
 

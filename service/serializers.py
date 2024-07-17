@@ -3,17 +3,26 @@ from .models import House, Apartment, Tariff, WaterMeter, WaterMeterReading, Ren
 
 
 class WaterMeterReadingSerializer(serializers.ModelSerializer):
+    water_meter_id = serializers.SerializerMethodField()
+
     class Meta:
         model = WaterMeterReading
-        fields = ('water_meter', 'reading_date', 'value')
+        fields = ('water_meter_id', 'reading_date', 'value')
+
+    def get_water_meter_id(self, obj):
+        return obj.water_meter.id
 
 
 class WaterMeterSerializer(serializers.ModelSerializer):
     readings = WaterMeterReadingSerializer(many=True, read_only=True)
+    apartment_id = serializers.SerializerMethodField()
 
     class Meta:
         model = WaterMeter
-        fields = ('apartment', 'installation_date', 'serial_number', 'readings')
+        fields = ('apartment_id', 'installation_date', 'serial_number', 'readings')
+
+    def get_apartment_id(self, obj):
+        return obj.apartment.id
 
 
 class ApartmentSerializer(serializers.ModelSerializer):

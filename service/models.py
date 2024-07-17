@@ -27,7 +27,7 @@ class Tariff(models.Model):
 
 
 class WaterMeter(models.Model):
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, related_name='watermeters')
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, related_name='water_meters')
     installation_date = models.DateField()
     serial_number = models.CharField(max_length=50)
 
